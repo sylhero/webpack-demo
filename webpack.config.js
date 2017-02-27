@@ -1,10 +1,11 @@
 const webpack = require('webpack');
-const CompressionPlugin = require("compression-webpack-plugin");
+const path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
-	entry: './test-original.js',
+	entry: './src/test-original.js',
 
 	output: {
-		path: __dirname,
+		path: path.resolve(__dirname, 'src'),
 		filename: `test-webpack.js`
 	},
 	resolve: {
@@ -18,6 +19,16 @@ module.exports = {
 				loader: 'babel-loader'
 			}]
 		}]
+	},
+	devServer: {
+		contentBase: '.',
+		noInfo: true,
+		compress: true,
+		clientLogLevel: 'warning',
+		stats: 'errors-only',
+		historyApiFallback: true,
+		port: 3001,
+		host: 'localhost'
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -34,11 +45,11 @@ module.exports = {
 			}
 		}),
 		new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js$/,
-            threshold: 10240,
-            minRatio: 0.8
-        })
+			asset: "[path].gz[query]",
+			algorithm: "gzip",
+			test: /\.js$/,
+			threshold: 0,
+			minRatio: 0.8
+		})
 	]
 };
