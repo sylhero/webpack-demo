@@ -1,4 +1,6 @@
 const common = require('./test-common');
+const same = require('./test-same');
+
 function testBrowser() {
 	if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) !== -1) {
 		common.writeBrowser('Your Browser is Opera');
